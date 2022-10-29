@@ -99,20 +99,25 @@ getHint ();
 function getHint () {
   const randomIndex = getRandomMovie ();
   const hint = movies[randomIndex];
-  console.log (`Here is the hint:
+  console.log (
+    '\x1b[33m%s\x1b[0m',
+    `Here is the hint:
           Genre: ${hint.genre}
           Year: ${hint.year}
           Director: ${hint.director}
-          Stars: ${hint.stars}`);
+          Stars: ${hint.stars}`
+  );
 
   console.log ();
-  const playersGuess = rl.question ('Enter your guess: ');
+  let playersGuess = rl.question ('Enter your guess: ');
+  playersGuess = playersGuess.toLowerCase ();
 
   if (playersGuess === hint.title) {
-    console.log ('Good job!');
+    console.log ('\x1b[32m%s\x1b[0m', 'Good job!');
 
     console.log ();
-    const playersNewExit = rl.question ('Would you like to play again? y/n: ');
+    let playersNewExit = rl.question ('Would you like to play again? y/n: ');
+    playersNewExit = playersNewExit.toLowerCase ();
     console.log ();
 
     if (playersNewExit === 'y') {
@@ -122,16 +127,25 @@ function getHint () {
     }
   } else {
     console.log ();
-    console.log (`Sorry, wrong answer. The correct answer is "${hint.title}"`);
+    console.log (
+      '\x1b[31m%s\x1b[0m', //red color
+      `Sorry, wrong answer. The correct answer is "${hint.title}"`
+    );
 
     console.log ();
-    const playersNewExit = rl.question ('Would you like to play again? y/n: ');
+    let playersNewExit = rl.question ('Would you like to play again? y/n: ');
     console.log ();
 
     if (playersNewExit === 'y') {
       getHint ();
     } else {
-      console.log (`Thank you for playing! Good buy ${player}`);
+      console.log ('Thank you for playing!');
+      console.log (
+        '\x1b[33m%s\x1b[0m',
+        '"Guess the Movie Title- 2"',
+        'coming soon'
+      );
+      console.log (`Good buy ${player}`);
     }
   }
 }
